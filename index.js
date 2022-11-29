@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-//const Subscriber = require("./models/subscriber");
+const book = require("./models/book.js");
 
-const subscribersController = require("./controllers/subscribersController");
+const booksController = require("./controllers/booksController.js");
 const express = require("express");
 const app = express();
 app.set("view engine", "ejs");
@@ -18,8 +18,6 @@ app.use(express.json());
 require("dotenv").config();
 const uri = process.env.ATLAS_URI;
 
-console.log(uri);
-
 mongoose.connect(uri, { useUnifiedTopology: true });
 
 const db = mongoose.connection;
@@ -30,15 +28,15 @@ db.once("open", () => {
 
 app.get(
   "/subscribers",
-  subscribersController.getAllSubscribers,
+  booksController.getAllbooks,
   (req, res, next) => {
     console.log(req.data);
-    res.render("subscribers", { subscribers: req.data });
+    res.render("books", { books: req.data });
   }
 );
 
-app.get("/contact", subscribersController.getSubscriptionPage);
-app.post("/subscribe", subscribersController.saveSubscriber);
+app.get("/contact", booksController.getbookPage);
+app.post("/subscribe", booksController.savebook);
 
 app.listen(app.get("port"), () => {
   console.log(`Server running @ http://localhost:${app.get("port")}`);
