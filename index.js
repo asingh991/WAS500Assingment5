@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+mongoose = require("mongoose");
 const book = require("./models/book.js");
 
-const booksController = require("./controllers/booksController.js");
 const express = require("express");
 const app = express();
+
 app.set("view engine", "ejs");
 
 app.set("port", process.env.PORT || 3000);
@@ -26,6 +26,17 @@ db.once("open", () => {
   console.log("Successfully connected to MongoDB using Mongoose!");
 });
 
+app.get("/home", (req,res) => {
+  console.log(`Received an incoming request...`, req.url);
+  res.render('index.ejs');
+}
+);
+app.get("/booksList", (req,res) => {
+  console.log(`Received an incoming request...`, req.url);
+  res.render('books.ejs');
+}
+);
+/*
 app.get(
   "/subscribers",
   booksController.getAllbooks,
@@ -37,7 +48,8 @@ app.get(
 
 app.get("/contact", booksController.getbookPage);
 app.post("/subscribe", booksController.savebook);
-
+*/
 app.listen(app.get("port"), () => {
   console.log(`Server running @ http://localhost:${app.get("port")}`);
 });
+
