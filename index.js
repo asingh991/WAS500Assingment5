@@ -1,6 +1,6 @@
 mongoose = require("mongoose");
 const book = require("./models/book.js");
-
+const booksController = require("./controllers/bookcontroller")
 const express = require("express");
 const app = express();
 
@@ -36,16 +36,18 @@ app.get("/booksList", (req,res) => {
   res.render('books.ejs');
 }
 );
-/*
-app.get(
-  "/subscribers",
-  booksController.getAllbooks,
-  (req, res, next) => {
+app.get("/books/:bookID", (req,res) => {
+  console.log(`Received an incoming request...`, req.url);
+  let id = req.params.bookID;
+  res.render('book'+id+'.ejs');
+}
+);
+app.get("/books", booksController.getAllbooks,(req, res, next) => {
     console.log(req.data);
     res.render("books", { books: req.data });
   }
 );
-
+/*
 app.get("/contact", booksController.getbookPage);
 app.post("/subscribe", booksController.savebook);
 */

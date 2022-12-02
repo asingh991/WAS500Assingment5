@@ -14,9 +14,11 @@ exports.getbookPage = (req, res) => {
 
 exports.savebook = (req, res) => {
   let newbook = new book({
+    id: req.body.id,
     name: req.body.name,
-    email: req.body.email,
-    zipCode: req.body.zipCode,
+    authorName: req.body.authorName,
+    description: req.body.description,
+    bookImage: req.body.bookImage,
   });
   newbook.save((error, result) => {
     if (error) res.send(error);
